@@ -1,0 +1,8 @@
+{
+  "name": "berniesumption.com",
+  "dependencies": {
+    "jquery": "~1.11.2",
+    "jquery.transit": "~0.9.12",
+    "console-polyfill": "~0.1.2"
+  }
+}
