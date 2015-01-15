@@ -3,11 +3,11 @@ exports.config =
   files:
     javascripts:
       joinTo:
-        'js/app.js': /^app/
-        'js/vendor.js': /^bower_components/
+        'inc/app.js': /^app/
+        'inc/vendor.js': /^bower_components/
     stylesheets:
       defaultExtension: 'less'
-      joinTo: 'app.css'
+      joinTo: 'inc/app.css'
   modules:
     wrapper: false
     definition: false
