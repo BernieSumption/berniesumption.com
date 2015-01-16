@@ -11,6 +11,3 @@ exports.config =
   modules:
     wrapper: false
     definition: false
-  plugins:
-    less:
-      regexp: 'foo' # other options: 'mediaquery', 'all'

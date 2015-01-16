@@ -1,0 +1,23 @@
+
+
+body
+  font-family "Droid Serif", serif
+  font-size 19px
+  background-color #333
+  color #FFF
+
+h1, h2, h3, h4, h4, h6
+  font-family Lato, sans-serif
+
+
+.container
+  max-width 1100px
+  margin 50px auto // above 1100, centre container
+  position relative
+
+  @media screen and (max-width 1200px)
+    margin 50px 50px // 900-1100 shrink keeping 50px margin
+
+  @media screen and (max-width 1000px)
+    margin 50px 5% // below 900 start to shrink margin
+

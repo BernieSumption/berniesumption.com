@@ -1,0 +1,271 @@
+@import 'nib'
+
+// screen widths are 1150+ - large desktop
+
+$native-photo-width = 223px
+$native-photo-height = 270px
+
+.jumbo-card
+  position: relative
+  padding: 1px
+
+  background url(/img/home-jumbo-card-bg.jpg) center top fixed
+  background-size: 100%;
+
+
+  // mobile layout first, smallest width will be 420px because of viewport-resize.coffee
+
+  .container
+    margin-top 7%
+    margin-bottom 7%
+
+  $photo-width = $native-photo-width * 0.6
+
+  .image
+    width $photo-width
+    height $native-photo-height * .6
+    background url("/img/bernie-cv-photo.jpg") no-repeat
+    background-size 100% 100%
+    border-radius 5px
+    box-shadow 0 0 20px #000
+
+  .greeting
+    position absolute
+    top 40px
+    left $photo-width + 55px
+    font-size 20px
+    font-weight bold
+    line-height 0
+    right 50px
+    text-shadow: 0 0 10px #000
+
+  .name
+    position absolute
+    top 10px
+    left $photo-width + 20px
+    font-size 50px
+    line-height 1em
+    text-shadow 0 0 10px #000
+
+  .tagline
+    font-size 16px
+    text-shadow: 0 0 4px #000
+    line-height 1.5em
+
+  @media screen and (min-width 620px)
+    .greeting
+      top 30px
+
+    .name
+      top 0px
+
+    .tagline
+      position absolute
+      top 80px
+      left $photo-width + 20px
+      font-size 18px
+      max-width 450px
+
+  @media screen and (min-width 1000px)
+
+    .image
+      width $native-photo-width
+      height $native-photo-height
+
+    .greeting
+      font-size 35px
+      font-weight bold
+      top 45px
+      left 330px
+
+    .name
+      font-size 80px
+      left 280px
+      top: -10px
+
+    .tagline
+      font-size 25px
+      top 150px
+      left 280px
+      max-width 600px
+
+
+
+.xjumbo-card
+  position: relative
+  padding: 1px
+
+  background url(/img/home-jumbo-card-bg.jpg) center top fixed
+  background-size: 100%;
+
+
+  .container
+    margin-top 7%
+    margin-bottom 7%
+
+  .image
+    width photo-width
+    height photo-height
+    background url("/img/bernie-cv-photo.jpg") no-repeat
+    background-size 100% 100%
+    border-radius 5px
+
+    box-shadow 0 0 20px #000
+
+  .name
+    position absolute
+    font-size 80px
+    line-height 0
+    left 280px
+    top: 20px
+    text-shadow 0 0 10px #000
+
+
+  .greeting
+    position absolute
+    display block
+    font-size 35px
+    font-weight bold
+    line-height 0
+    top 35px
+    left 330px
+    right 50px
+
+    text-shadow: 0 0 10px #000
+
+  .tagline
+    position absolute
+    font-size 25px
+    line-height 1.5em
+    top 150px
+    left 280px
+    margin-right 50px
+    text-shadow: 0 0 4px #000
+
+  @media screen and (max-width 1000px)
+
+    .name
+      font-size 55px
+      top 10px
+      line-height 1em
+
+    .tagline
+      top 150px
+      font-size 20px
+
+  // includes landscape phablets
+  @media screen and (max-width 800px)
+
+    .image
+      width $native-photo-width * 0.8
+      height $native-photo-height * 0.8
+
+    .greeting
+      font-size 45px
+      top 15px
+      left 220px
+      font-size 25px
+
+    .name
+      top 0px
+      left 220px
+      font-size 40px
+      line-height 0.8em
+
+    .tagline
+      left 50px
+      font-size 20px
+      margin-right 0
+
+
+    @media screen and (max-width 600px)
+      .image
+        width 111px
+        height 135px
+
+      .greeting
+        top 25px
+
+      .name
+        top 20px
+        font-size 45px
+
+      .tagline
+        position static
+        left 50px
+        margin-right 0
+        font-size 15px
+
+
+
+
+/*@media screen and (max-width 700px)*/
+    /*zoom 60%*/
+
+  /*@media screen and (max-width 600px)*/
+    /*zoom 50%*/
+
+  /*@media screen and (max-width 500px)*/
+    /*zoom 40%*/
+/*
+  .tagline
+    font-size 30px
+
+@media screen and (max-width 400px)
+  zoom 40%
+  */
+    /*
+
+  @media screen and (max-width 1000px)
+
+    .greeting
+      font-size 40px
+      left 350px
+
+    .name
+      font-size 55px
+      line-height 1em
+
+    .title
+      top 0
+
+    .tagline
+      font-size 22px
+      margin-right 100px
+
+    .container
+      margin: 50px auto
+
+
+  @media screen and (max-width 800px)
+
+    .image
+      width 111px
+      height 135px
+
+    .name, .greeting
+      left 200px
+
+    .tagline
+      left 50px
+      width 600px
+
+    @media screen and (max-width 700px)
+
+      .container
+        zoom 90%
+
+      @media screen and (max-width 600px)
+
+        .container
+          zoom 70%
+
+      @media screen and (max-width 500px)
+
+        .container
+          zoom 60%
+
+*/
+
+
+
