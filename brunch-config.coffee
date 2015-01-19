@@ -11,3 +11,14 @@ exports.config =
   modules:
     wrapper: false
     definition: false
+
+  conventions:
+    ignored: /jaded-brunch/
+
+
+  plugins:
+    autoReload:
+      delay: 0.5
+
+  server:
+    noPushState: true

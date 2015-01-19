@@ -1,17 +1,19 @@
 @import 'nib'
 
-// screen widths are 1150+ - large desktop
-
 $native-photo-width = 223px
 $native-photo-height = 270px
 
 .jumbo-card
-  position: relative
-  padding: 1px
+  position relative
+  padding 1px
 
   background url(/img/home-jumbo-card-bg.jpg) 0 0 no-repeat
-  background-size: 100%;
-  background-size: cover;
+  background-size 100%;
+  background-size cover;
+  text-shadow 0 0 10px #000
+  text-shadow 0 0 10px #000, 0 0 10px #000, 0 0 10px #000
+  border-bottom solid 10px deeppink
+  box-shadow 0 0 100px #000
 
 
   // mobile layout first, smallest width will be 420px because of viewport-resize.coffee
@@ -38,7 +40,6 @@ $native-photo-height = 270px
     font-weight bold
     line-height 0
     right 50px
-    text-shadow: 0 0 10px #000
 
   .name
     position absolute
@@ -46,12 +47,10 @@ $native-photo-height = 270px
     left $photo-width + 20px
     font-size 50px
     line-height 1em
-    text-shadow 0 0 10px #000
 
   .tagline
     font-size 22px
     line-height 1em
-    text-shadow: 0 0 4px #000
 
   @media screen and (min-width 620px)
     .greeting
@@ -90,20 +89,30 @@ $native-photo-height = 270px
       left 280px
       max-width 600px
 
-/*.project-badge-container*/
+
+bg-color = #0d1528
+
+.project-badge-wrapper
+  background linear-gradient(left, bg-color, lighten(bg-color, 10%), bg-color)
+
+  h2
+    text-shadow: 0 0 5px #000
 
 .project-badge
   display block
   float left
-  min-height 100px
   background #666
+  background-size: 100%
   width 100%
+  padding-bottom 100%
   margin 10px 0
 
   @media screen and (min-width 620px)
     margin 2%
     width 45%
+    padding-bottom 45%
 
   @media screen and (min-width 1000px)
     margin 2%
     width 28%
+    padding-bottom 28%
