@@ -7,4 +7,5 @@ $(".jumbo-card").each (i, item) ->
     scrollTop = $window.scrollTop()
     height = $item.height()
     if scrollTop < height
-      $item.css('backgroundPositionY', Math.floor(scrollTop * 0.5))
+      scroll = Math.max(Math.floor(scrollTop * 0.5), 0)
+      $item.css('backgroundPositionY', scroll)
