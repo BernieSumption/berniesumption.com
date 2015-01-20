@@ -20,6 +20,7 @@
     "javascript-brunch": ">= 1.0 < 1.8",
     "nib": "^1.0.4",
     "stylus-brunch": "^1.8.1",
-    "uglify-js-brunch": "^1.7.7"
+    "uglify-js-brunch": "^1.7.7",
+    "retina-brunch": "^1.7.2"
   }
 }
