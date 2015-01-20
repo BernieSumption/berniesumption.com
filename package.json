@@ -16,11 +16,12 @@
     "clean-css-brunch": ">= 1.0 < 1.8",
     "coffee-script-brunch": "^1.8.1",
     "css-brunch": ">= 1.0 < 1.8",
+    "digest-brunch": "^1.4.0",
     "jaded-brunch": "^1.7.11",
     "javascript-brunch": ">= 1.0 < 1.8",
     "nib": "^1.0.4",
+    "retina-brunch": "^1.7.2",
     "stylus-brunch": "^1.8.1",
-    "uglify-js-brunch": "^1.7.7",
-    "retina-brunch": "^1.7.2"
+    "uglify-js-brunch": "^1.7.7"
   }
 }

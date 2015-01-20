@@ -6,8 +6,8 @@ $native-photo-height = 270px
 .jumbo-card
   position relative
   padding 1px
+  background url("DIGEST(/images/home-jumbo-card-bg.jpg)")
 
-  background url(/images/home-jumbo-card-bg.jpg)
   background-size 100%
   text-shadow 0 0 10px #000
   text-shadow 0 0 10px #000, 0 0 10px #000, 0 0 10px #000
@@ -26,7 +26,7 @@ $native-photo-height = 270px
   .image
     width $photo-width
     height $native-photo-height * .6
-    image '/images/bernie-cv-photo.jpg' 100%
+    image 'DIGEST(/images/bernie-cv-photo.jpg)' 100%
     border-radius 5px
     box-shadow 0 0 20px #000
 
@@ -118,4 +118,4 @@ bg-color = #0d1528
 
 
 .sparks-badge
-  image '/images/projects/sparks-thumb.jpg' 100%
+  image 'DIGEST(/images/projects/sparks-thumb.jpg)' 100%
