@@ -15,22 +15,28 @@ html(lang="en")
         p.tagline.
           I build interesting software. Browse my projects below, check out my blog or contact me.
 
-    .project-badge-wrapper
-      .container
-        h2 Major projects
+    .container
+      
+      h2 Major projects
+      
+      .project-badge-wrapper
         
-        .project-badge
-        .project-badge
-        .project-badge
-          
-        h2 Experiments and miscellany
+        a.project-badge
+        a.project-badge
+        a.project-badge
         
-        .project-badge.sparks-badge
+      h2 Experiments and miscellany
+      
+      .project-badge-wrapper
+        
+        a.project-badge.sparks-badge(href="/sparks/")
+          span.title sparks
+          span.skills JavaScript, Canvas
           
-        .project-badge
-        .project-badge
-        .project-badge
-        .project-badge
+        a.project-badge
+        a.project-badge
+        a.project-badge
+        a.project-badge
 
   script(src="DIGEST(/inc/vendor.js)")
   script(src="DIGEST(/inc/app.js)")

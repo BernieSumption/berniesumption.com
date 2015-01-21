@@ -88,34 +88,59 @@ $native-photo-height = 270px
       max-width 600px
 
 
-bg-color = #0d1528
-
-.project-badge-wrapper
-  background linear-gradient(left, bg-color, lighten(bg-color, 10%), bg-color)
-
-  h2
-    text-shadow: 0 0 5px #000
-
 .project-badge
   display block
+  position relative
+  color #FFF
   float left
-  background #666
   background-size: 100%
   width 100%
   padding-bottom 100%
   margin 10px 0
+  border-radius 5px
+  overflow hidden
+
+  text-shadow 0 0 10px #000
+  text-shadow 0 0 10px #000, 0 0 10px #000, 0 0 10px #000
 
   @media screen and (min-width 620px)
-    margin 2%
+    margin 4% 2% 0 2%
     width 45%
     padding-bottom 45%
 
   @media screen and (min-width 1000px)
-    margin 2%
     width 28%
     padding-bottom 28%
 
+.project-badge-wrapper
+  clearfix()
 
+.project-badge .title
+  display block
+  font-size 30px
+  position absolute
+  margin 0
+  top 0
+  left 0
+  right 0
+  line-height 0.5
+  padding 20px
+  background-color transparent
+  transition background-color .25s ease-in-out
+
+.project-badge:hover .title
+  background-color deeppink
+
+.project-badge .skills
+  display block
+  font-style italic
+  transition opacity 0.2s, bottom 0.2s
+  position absolute
+  bottom 0
+  left 0
+  right 0
+  padding 20px
+  border-radius 0 0 5px 5px
 
 .sparks-badge
   image 'DIGEST(/images/projects/sparks-thumb.jpg)' 100%
