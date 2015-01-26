@@ -1,12 +1,17 @@
-@import 'nib'
+
+@import './shared.styl'
 
 bg-color = #0d1528
+
+html
+  height 100%
 
 body
   font-family "Droid Serif", serif
   font-size 19px
   color #FFF
   min-width 420px
+  min-height 100%
   background-color #333
   background linear-gradient(left, bg-color, lighten(bg-color, 10%), bg-color)
 
@@ -18,7 +23,12 @@ h1, h2, h3, h4, h4, h6, .title
 h2
   margin 50px 0 0 0
 
+a
+  color $accent_color
+  text-decoration none
 
+a:hover
+  border-bottom solid 1px $accent_color
 
 
 .container

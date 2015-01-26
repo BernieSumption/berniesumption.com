@@ -1,0 +1,109 @@
+
+@import './shared.styl'
+
+
+.demo
+  position absolute
+  background-color green
+  width 100px
+  height 100px
+  bottom 20%
+
+.project-page
+  position absolute
+  background no-repeat center center fixed
+  background-size 100%
+  background-size cover
+  height 100%
+  width 100%
+
+
+
+  .heading
+    padding 1px 150px 50px 25px
+    background rgba(0, 0, 0, 0.2)
+    background linear-gradient(bottom, rgba(0, 0, 0, 0), 50px rgba(0, 0, 0, 0.75))
+
+    thick-text-shadow()
+
+    h1
+      margin-bottom 25px
+      line-height 0.5em
+
+      @media $medium_device
+        margin 50px
+        font-size 60px
+
+    p
+      font-size 17px
+      margin-bottom 12px
+
+      @media $medium_device
+        font-size 22px
+        margin 25px 50px
+
+
+
+  centered($size)
+    width $size
+    height $size
+    top 50%
+    left 50%
+    margin-left $size * -0.5
+    margin-top $size * -0.5
+
+  .play
+    position absolute
+    display block
+    background url('DIGEST(/images/play-icon.png)') no-repeat
+    background-size 100% 100%
+    opacity .9
+    centered(100px)
+
+    @media screen and (min-width 620px) and (min-height 700px)
+      centered(150px)
+
+    @media screen and (min-width 1000px) and (min-height 850px)
+      centered(200px)
+
+  .play:hover
+    opacity 1
+
+  .fork-me
+    position absolute
+    width 149px
+    height 149px
+    top 0
+    right 0
+    image 'DIGEST(/images/fork-me.png)' 100%
+
+
+
+
+.spark-project-page
+  background-image url('DIGEST(/images/projects/spark-large.jpg)')
+
+
+
+
+
+.popover-frame
+  display none
+
+  .close
+    position absolute
+    display block
+    width 50px
+    height 50px
+    top 20px
+    right 20px
+    background url('DIGEST(/images/close-icon.png)') no-repeat
+    background-size 100% 100%
+
+
+.popover-frame, .popover-frame iframe
+  position absolute
+  border none
+  width 100%
+  height 100%
+  top 0
