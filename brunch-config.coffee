@@ -13,7 +13,7 @@ exports.config =
     definition: false
 
   conventions:
-    ignored: /jaded-brunch/
+    ignored: [/jaded-brunch/, /templates/]
 
 
   plugins:

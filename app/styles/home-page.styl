@@ -101,8 +101,7 @@ $native-photo-height = 270px
   border-radius 5px
   overflow hidden
 
-  text-shadow 0 0 10px #000
-  text-shadow 0 0 10px #000, 0 0 10px #000, 0 0 10px #000
+  thick-text-shadow()
 
   @media $medium_device
     margin 4% 2% 0 2%
@@ -135,7 +134,7 @@ $native-photo-height = 270px
 .project-badge .skills
   display block
   font-style italic
-  transition opacity 0.2s, bottom 0.2s
+  background linear-gradient(bottom, 75px rgba(0, 0, 0, .25),  rgba(0, 0, 0, 0))
   position absolute
   bottom 0
   left 0
@@ -145,3 +144,6 @@ $native-photo-height = 270px
 
 .spark-badge
   image 'DIGEST(/images/projects/spark-thumb.jpg)' 100%
+
+.inamo-badge
+  image 'DIGEST(/images/projects/inamo-thumb.jpg)' 100%

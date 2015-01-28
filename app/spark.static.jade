@@ -1,23 +1,15 @@
-doctype html
-html(lang="en")
-  head
-    title Bernie Sumption's personal website
-    link(rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:700|Droid+Serif")
-    link(rel="stylesheet" href="DIGEST(/inc/app.css)")
-    meta(id="viewport" name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1")
-  body
-    .project-page.spark-project-page
-      
-      a.fork-me(href="https://github.com/BernieSumption/color-sparks")
-    
-      .heading
-        h1 spark
-        p A pretty little toy made with JavaScript and Canvas. Also available in ActionScript and Processing.
-      
-      a.play(href="http://berniesumption.github.io/color-sparks")
-    
-      .popover-frame
-        a.close(href="javascript:void(0)", title="Close [Esc]")
+extends templates/skeleton
 
-  script(src="DIGEST(/inc/vendor.js)")
-  script(src="DIGEST(/inc/app.js)")
+block body
+  .project-page(style="background-image: url('DIGEST(/images/projects/spark-large.jpg)')")
+    
+    a.fork-me(href="https://github.com/BernieSumption/color-sparks")
+
+    .heading
+      h1 spark
+      p A pretty little toy made with JavaScript and Canvas as part of a research project. Also available in ActionScript and Processing. See the  #[a(href="http://blog.berniesumption.com/software/graphics-programming-environments/") blog post] and #[a(href="http://berniesumption.github.io/color-sparks") GitHub repo].
+    
+    a.play(href="http://berniesumption.github.io/color-sparks")
+
+    .popover-frame
+      a.close(href="javascript:void(0)", title="Close [Esc]")

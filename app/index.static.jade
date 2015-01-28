@@ -1,42 +1,40 @@
-doctype html
-html(lang="en")
-  head
-    title Bernie Sumption's personal website
-    link(rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:700|Droid+Serif")
-    link(rel="stylesheet" href="DIGEST(/inc/app.css)")
-    meta(id="viewport" name="viewport" content="width=420, initial-scale=0.69, minimum-scale=0.69")
-  body
+extends templates/skeleton
 
-    .jumbo-card
-      .container
-        .image
-        .greeting Hi, I'm
-        h1.name Bernie Sumption
-        p.tagline.
-          I build interesting software. I also have a #[a(href="http://blog.berniesumption.com") blog], a #[a(href="https://www.linkedin.com/in/berniesumption") CV] and a #[a(href="https://github.com/BernieSumption") GitHub].
+block body
 
+  .jumbo-card
     .container
-      
-      h2 Major projects
-      
-      .project-badge-wrapper
-        
-        a.project-badge
-        a.project-badge
-        a.project-badge
-        
-      h2 Experiments and miscellany
-      
-      .project-badge-wrapper
-        
-        a.project-badge.spark-badge(href="/spark.html")
-          span.title spark
-          span.skills JavaScript, Canvas
-          
-        a.project-badge
-        a.project-badge
-        a.project-badge
-        a.project-badge
+      .image
+      .greeting Hi, I'm
+      h1.name Bernie Sumption
+      p.tagline.
+        I build interesting software. I also have a #[a(href="http://blog.berniesumption.com") blog], a #[a(href="https://www.linkedin.com/in/berniesumption") CV] and a #[a(href="https://github.com/BernieSumption") GitHub].
 
-  script(src="DIGEST(/inc/vendor.js)")
-  script(src="DIGEST(/inc/app.js)")
+  .container
+    
+    h2 Major projects
+    
+
+    mixin project(file, name, skills)
+      a(href="/#{file}.html" class="project-badge #{file}-badge")
+        span.title= name
+        span.skills= skills
+    
+    .project-badge-wrapper
+      
+      a.project-badge
+        
+      +project('inamo', 'inamo restaurant', 'UX, ActionScript, Java, C#, other stuff')
+      
+      a.project-badge
+      
+    h2 Experiments and miscellany
+    
+    .project-badge-wrapper
+      
+      +project('spark', 'spark', 'JavaScript')
+        
+      a.project-badge
+      a.project-badge
+      a.project-badge
+      a.project-badge
