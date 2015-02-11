@@ -4,7 +4,11 @@ block body
   .project-page(style="background-image: url('DIGEST(/images/projects/inamo-large.jpg)')")
 
     .heading
-      h1 inamo restaurant
-      p I created the software for <em>inamo</em>, an interactive experience voted "London's best restaurant" by TimeOut readers. I've written up a <a href="http://blog.berniesumption.com/software/inamo-case-study/">case study</a> describing my role, and a very geeky account of <a href="http://blog.berniesumption.com/software/inamo-mouse-system-multiple-mouse-pointers-in-flash/">one technical aspect</a> of the project. Or you can watch the video below and have some guy called Ant tell you about it. Thanks Ant.
+      h1 #[a.icon-reply.button.back-button(href="/")] inamo restaurant
+      p An interactive experience voted "London's best restaurant" by TimeOut readers. See the <a href="http://blog.berniesumption.com/software/inamo-case-study/">case study</a> describing my role, a very geeky account of <a href="http://blog.berniesumption.com/software/inamo-mouse-system-multiple-mouse-pointers-in-flash/">one technical aspect</a> of the project, or watch some guy on YouTube called Ant tell you about it below. Thanks Ant.
     
-    +fullScreenPlay("https://www.youtube.com/embed/z-7Hl3Ex03I?autoplay=1&vq=hd720")
+    .main
+      a.button.play-button.icon-youtube-play(href="https://www.youtube.com/embed/z-7Hl3Ex03I?autoplay=1&vq=hd720")
+
+    .popover-frame
+      a.button.close-button.icon-cancel-circled(href="javascript:void(0)", title="Close [Esc]")

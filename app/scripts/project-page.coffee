@@ -17,11 +17,11 @@ $(document).ready ->
         _iframe.remove()
         _iframe = null
 
-  $('a.play').click ->
+  $('a.play-button').click ->
     showPopover $(this).attr('href')
     return false
 
-  $('.popover-frame .close').click ->
+  $('.popover-frame .close-button').click ->
     hidePopover()
     return false
 
@@ -29,3 +29,12 @@ $(document).ready ->
 
     if event.keyCode is 27
         hidePopover()
+
+  resizeMain = ->
+    headingHeight = $('.heading').height()
+    if headingHeight
+      $('.main').css('top', headingHeight)
+
+  resizeMain()
+  $(document).load resizeMain
+  $(window).resize resizeMain

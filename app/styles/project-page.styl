@@ -18,14 +18,17 @@
   width 100%
 
 
-
   .heading
-    padding 1px 150px 50px 25px
+    padding 1px 10% 50px 25px
     background rgba(0, 0, 0, 0.2)
-    // this gradient is slightly s-shaped, less harsh than a straight linear
+    // this gradient is slightly s-shaped, less harsh than a straight linear gradient
     background linear-gradient(bottom, rgba(0, 0, 0, 0), 15px rgba(0, 0, 0, 0.15), 30px rgba(0, 0, 0, 0.45), 45px rgba(0, 0, 0, 0.6))
 
     thick-text-shadow()
+
+    p
+      max-width 1200px
+
 
     h1
       margin-bottom 25px
@@ -43,32 +46,33 @@
         font-size 22px
         margin 25px 50px
 
-
-
-  centered($size)
-    width $size
-    height $size
-    top 50%
-    left 50%
-    margin-left $size * -0.5
-    margin-top $size * -0.5
-
-  .play
+  .main
     position absolute
+    overflow hidden
+    bottom 0
+    left 0
+    right 0
+    top 200px
+
+  .play-button
     display block
-    background url('DIGEST(/images/play-icon.png)') no-repeat
-    background-size 100% 100%
-    opacity .9
-    centered(100px)
+    width 100%
+    height 0
+    top 50%
+    text-align center
+    position absolute
+    font-size 100px
+    margin-top -0.5em
 
-    @media screen and (min-width 620px) and (min-height 700px)
-      centered(150px)
+    &:before
+      vertical-align 200%
 
-    @media screen and (min-width 1000px) and (min-height 850px)
-      centered(200px)
+    @media $medium_device
+      font-size 150px
 
-  .play:hover
-    opacity 1
+    @media $large_device
+      font-size 200px
+
 
   .fork-me
     position absolute
@@ -79,20 +83,28 @@
     image 'DIGEST(/images/fork-me.png)' 100%
 
 
+.button
+  color #FFF
+  thick-text-shadow(#000)
 
+  &:hover
+    text-decoration none
+    thick-text-shadow($accent_color)
+
+
+
+.back-button
+  padding-right 20px
 
 .popover-frame
   display none
 
-  .close
+  .close-button
     position absolute
     display block
-    width 50px
-    height 50px
-    top 20px
-    right 20px
-    background url('DIGEST(/images/close-icon.png)') no-repeat
-    background-size 100% 100%
+    top 50px
+    right 25px
+    font-size 75px
 
 
 .popover-frame, .popover-frame iframe

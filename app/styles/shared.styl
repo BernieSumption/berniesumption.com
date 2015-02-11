@@ -1,8 +1,8 @@
 @import 'nib'
 
-thick-text-shadow()
-  text-shadow 0 0 10px #000
-  text-shadow 0 0 10px #000, 0 0 10px #000, 0 0 10px #000
+thick-text-shadow($color=#000)
+  text-shadow 0 0 10px $color
+  text-shadow 0 0 10px $color, 0 0 10px $color, 0 0 10px $color
 
 
 $medium_device = "screen and (min-width 620px)"
