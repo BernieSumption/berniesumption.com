@@ -17,11 +17,13 @@ exports.config =
 
 
   plugins:
-    autoReload:
-      delay: 0.5
+
     digest:
       referenceFiles: /\.(html|css)$/
       infixes: ['@2x']
+
+    jaded:
+      staticPatterns: /^app(\/|\\)pages(\/|\\)(.+)\.jade$/
 
   server:
     noPushState: true

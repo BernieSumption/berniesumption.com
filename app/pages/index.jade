@@ -1,4 +1,4 @@
-extends templates/skeleton
+extends ../templates/skeleton
 
 block body
 
@@ -24,7 +24,7 @@ block body
   .container
 
     mixin project(file, name, skills)
-      a(href="/#{file}.html" class="project-badge #{file}-badge")
+      a(href="/#{file}/" class="project-badge #{file}-badge")
         span.title= name
         span.skills= skills
           
