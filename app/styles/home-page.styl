@@ -10,8 +10,9 @@ $native-photo-height = 270px
   background url("DIGEST(/images/home-jumbo-card-bg.jpg)")
 
   background-size 100%
-  border-bottom solid 10px $accent_color
-  box-shadow 0 0 100px #000
+  // border-bottom solid 10px $accent_color
+
+  box-shadow 0 0 25px #000
 
   thick-text-shadow()
 
@@ -88,6 +89,43 @@ $native-photo-height = 270px
       left 280px
       max-width 600px
 
+.social-icon-group
+  display inline-block
+
+.social-icons
+  background $accent_color
+  box-shadow 0 0 100px #000
+  padding 10px 0
+  text-align center
+
+  a
+    color #FFF
+    font-size 20px
+    margin-right 20px
+    display inline-block
+    margin 10px 0
+
+
+  a:before // this is the icon font
+    font-size 30px
+    text-decoration none!important
+    vertical-align: -15%
+
+  @media $medium_device
+    a
+      font-size 25px
+      margin-right 20px
+
+    a:before
+      font-size 35px
+
+  @media $large_device
+    a
+      font-size 25px
+      margin-right 75px
+
+    a:before
+      font-size 45px
 
 .project-badge
   display block
@@ -124,8 +162,7 @@ $native-photo-height = 270px
   top 0
   left 0
   right 0
-  line-height 0.5
-  padding 20px
+  padding 10px 20px
   background-color transparent
   transition background-color .25s ease-in-out
 

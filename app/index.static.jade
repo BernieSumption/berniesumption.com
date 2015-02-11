@@ -8,17 +8,27 @@ block body
       .greeting Hi, I'm
       h1.name Bernie Sumption
       p.tagline.
-        I build interesting software. I also have a #[a(href="http://blog.berniesumption.com") blog], a #[a(href="https://www.linkedin.com/in/berniesumption") CV] and a #[a(href="https://github.com/BernieSumption") GitHub].
-
+        I build interesting software.
+        
+        
+  .social-icons
+    .container
+      .social-icon-group
+        a.icon-wordpress(href="http://blog.berniesumption.com/") Blog
+        a.icon-github-circled(href="https://github.com/BernieSumption") GitHub
+      .social-icon-group
+        a.icon-linkedin-squared(href="https://www.linkedin.com/in/berniesumption") CV
+        a.icon-twitter-squared(href="https://twitter.com/BernieSumption") Twitter
+  
+  
   .container
-    
-    h2 Major projects
-    
 
     mixin project(file, name, skills)
       a(href="/#{file}.html" class="project-badge #{file}-badge")
         span.title= name
         span.skills= skills
+          
+    h2 Major projects
     
     .project-badge-wrapper
       
@@ -27,11 +37,6 @@ block body
       +project('inamo', 'inamo restaurant', 'UX, ActionScript, Java, C#, other stuff')
       
       +project('ge-tables', 'GE Touch Tables', 'C++, OpenGL, Python')
-      
-      
-    h2 Experiments and miscellany
-    
-    .project-badge-wrapper
       
       +project('spark', 'spark', 'JavaScript')
         
