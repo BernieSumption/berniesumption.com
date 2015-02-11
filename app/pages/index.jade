@@ -7,8 +7,7 @@ block body
       .image
       .greeting Hi, I'm
       h1.name Bernie Sumption
-      p.tagline.
-        I build interesting software.
+      p.tagline I build interesting software.
         
         
   .social-icons
@@ -23,12 +22,13 @@ block body
   
   .container
 
-    mixin project(file, name, skills)
-      a(href="/#{file}/" class="project-badge #{file}-badge")
+    mixin project(file, name, skills, link)
+      if !link
+        - link = "/" + file + "/"
+      a(href=link class="project-badge #{file}-badge")
         span.title= name
-        span.skills= skills
-          
-    h2 Major projects
+        if skills
+          span.skills= skills
     
     .project-badge-wrapper
       
@@ -47,6 +47,8 @@ block body
       +project('photo-guides', 'Photography guide', 'Technical writing')
         
       +project('wp-geo-big-map', 'WP Geo Big Map', 'Wordpress, PHP, JavaScript')
+        
+      +project('ogre', 'OGRE', 'Networking', 'https://github.com/BernieSumption/OGRE/wiki')
     
     h2 Other work
     
@@ -54,6 +56,5 @@ block body
     
       ul
         li #[a(href="http://blog.berniesumption.com/software/animator/") Animator.js] - Arguably the first good JavaScript CSS animation library.
-        li #[a(href="https://github.com/BernieSumption/OGRE/wiki") OGRE] - A protocol for cross-platform structured data replication.
         li #[a(href="http://blog.berniesumption.com/software/mixins-for-java/") Mixins for Java] - Hacking #[a(href="http://en.wikipedia.org/wiki/Mixin") Mixins] into the Java language.
       
