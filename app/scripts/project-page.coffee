@@ -1,6 +1,8 @@
 
 $(document).ready ->
 
+  # PLAY BUTTON OPENS IN FULL WINDOW IFRAME
+
   frameWrapper = $('.popover-frame')
   iframe = null
 
@@ -30,6 +32,8 @@ $(document).ready ->
     if event.keyCode is 27
         hidePopover()
 
+  # MAIN DIV RESIZES TO FILL AREA OF WINDOW NOT ALREADY FILLED BY HEADING
+
   resizeMain = ->
     headingHeight = $('.heading').height()
     if headingHeight
@@ -38,3 +42,10 @@ $(document).ready ->
   resizeMain()
   $(document).load resizeMain
   $(window).resize resizeMain
+
+  # BACK LINK USES HISTORY IF PREVIOUS PAGE WAS HOME
+
+  $('.back-button').click ->
+    if document.referrer is this.href
+      window.history.back()
+      
