@@ -16,11 +16,21 @@ exports.config =
     ignored: [/jaded-brunch/, /templates/]
 
 
+  paths:
+    public: "debug"
+
+  overrides:
+    production:
+      sourceMaps: true
+      paths:
+        public: "dist"
+
+
   plugins:
 
-    digest:
-      referenceFiles: /\.(html|css)$/
-      infixes: ['@2x']
+    # digest:
+    #   referenceFiles: /\.(html|css)$/
+    #   infixes: ['@2x']
 
     jaded:
       staticPatterns: /^app(\/|\\)pages(\/|\\)(.+)\.jade$/

@@ -8,11 +8,12 @@ block body
   - var title = ''
   - var play = false
   - var github = false
+  - var backgroundPosition = 'center'
   
 
   block vars
   
-  .project-page(style="background-image: url('DIGEST(/images/projects/#{slug}-large.jpg)')")
+  .project-page(style="background-image: url('/images/projects/#{slug}-large.jpg?DIGEST'); background-position: #{backgroundPosition}")
     
     if github
       a.fork-me(href="https://github.com/BernieSumption/#{github}" target="_blank")
