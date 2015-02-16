@@ -21,6 +21,6 @@ block bodyScripts
         + ( myBad ? "officially *my fault*. My robot minions have notified me of the problem." : "probably *someone else's fault*")
       explanation.style.display = "block";
       if (myBad) {
-        postAnalyticsError("Internal 404");
+        postAnalyticsError("Internal 404 at " + document.location);
       }
     }

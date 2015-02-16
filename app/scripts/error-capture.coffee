@@ -10,10 +10,10 @@ postAnalyticsError = (errorString) ->
   ga 'send', 'event', 'error', errorString
 
 handleJSException = (ex) ->
-  postAnalyticsError "exception: " + ex + "\n\t" + printStackTrace({e: ex}).join("\n\t")
+  postAnalyticsError "exception at #{document.location}: " + ex + "\n\t" + printStackTrace({e: ex}).join("\n\t")
 
 window.onerror = (error) ->
-  postAnalyticsError "onerror: " + error
+  postAnalyticsError "onerror at #{document.location}: " + error
 
 # wrap a function to log any exceptions that it throws
 exceptionLogWrapper = (f) ->

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Bernie Sumption</title><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:700|Droid+Serif"><link rel="stylesheet" href="/inc/app.css?01357c0"><meta id="viewport" name="viewport" content="width=420, initial-scale=0.69, minimum-scale=0.69"></head><body class="clearfix"><div class="not-found-container"><div class="not-found-content"><h1>Derp Derp: Page Not Found</h1><p id="explanation"></p><p>Maybe try the <a href="/">home page</a>?</p></div></div></body><script src="/inc/vendor.js?01357c0"></script><script src="/inc/app.js?01357c0"></script><script>if (document.referrer) {
+<!DOCTYPE html><html lang="en"><head><title>Bernie Sumption</title><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:700|Droid+Serif"><link rel="stylesheet" href="/inc/app.css?49b3f01"><meta id="viewport" name="viewport" content="width=420, initial-scale=0.69, minimum-scale=0.69"></head><body class="clearfix"><div class="not-found-container"><div class="not-found-content"><h1>Derp Derp: Page Not Found</h1><p id="explanation"></p><p>Maybe try the <a href="/">home page</a>?</p></div></div></body><script src="/inc/vendor.js?49b3f01"></script><script src="/inc/app.js?49b3f01"></script><script>if (document.referrer) {
   var refLink = document.createElement("a");
   refLink.href = document.referrer;
   var myBad = refLink.hostname.indexOf("berniesumption.com") != -1;
@@ -8,6 +8,6 @@
     + ( myBad ? "officially *my fault*. My robot minions have notified me of the problem." : "probably *someone else's fault*")
   explanation.style.display = "block";
   if (myBad) {
-    postAnalyticsError("Internal 404");
+    postAnalyticsError("Internal 404 at " + document.location);
   }
 }</script></html>
