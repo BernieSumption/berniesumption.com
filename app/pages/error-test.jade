@@ -1,0 +1,43 @@
+extends ../templates/skeleton
+
+block body
+  
+  ul
+    li
+      a(href="/shiznit") Link to non-existant page
+    li
+      a(href="javascript:loadBadScript()") Use non-existant script
+    li Errors:
+      ul
+        li
+          a(href="javascript:nullPointerError();") immediate NPE
+        li
+          a(href="javascript:doLater(nullPointerError);") delayed NPE
+        li
+          a(href="javascript:throwError();") immediate throw
+        li
+          a(href="javascript:doLater(throwError);") delayed throw
+
+block bodyScripts
+  
+  script.
+    function doLater(f) {
+      setTimeout(f, 100);
+    }
+    function nullPointerError() {
+      window.foo();
+    }
+    nullPointerError = exceptionLogWrapper(nullPointerError);
+    
+    function throwError() {
+      throw new Error('whoops');
+    }
+    throwError = exceptionLogWrapper(throwError);
+    
+    function loadBadScript() {
+      var ga = document.createElement('script');
+      ga.src = '/bad.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    }
+    

@@ -10,6 +10,7 @@ $(document).ready ->
     unless iframe
       iframe = $('<iframe>').attr('src', href)
       frameWrapper.fadeIn().prepend(iframe)
+      ga 'send', 'event', 'project-play', href
 
   hidePopover = ->
     if iframe
@@ -48,4 +49,3 @@ $(document).ready ->
   $('.back-button').click ->
     if document.referrer is this.href
       window.history.back()
-      

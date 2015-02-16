@@ -1,0 +1,36 @@
+
+@import './shared.styl'
+
+$native-photo-width = 225px
+$native-photo-height = 270px
+
+.not-found-container
+  background url("/images/home-jumbo-card-bg.jpg?DIGEST")
+
+  position absolute
+  top 0
+  left 0
+  right 0
+  bottom 0
+  background-size 100%
+  background-size cover
+  background-position center
+  vertical-align middle
+  text-align center
+
+.not-found-content
+
+  thick-text-shadow()
+
+  position absolute
+  top 50%
+  left 50%
+  max-width 50%
+  margin-right -50%
+  transform translate(-50%, -50%)
+
+  p
+    font-size 22px
+
+  #explanation
+    display none

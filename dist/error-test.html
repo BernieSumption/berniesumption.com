@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="en"><head><title>Bernie Sumption</title><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:700|Droid+Serif"><link rel="stylesheet" href="/inc/app.css?5d377da"><meta id="viewport" name="viewport" content="width=420, initial-scale=0.69, minimum-scale=0.69"></head><body class="clearfix"><ul><li><a href="/shiznit">Link to non-existant page</a></li><li><a href="javascript:loadBadScript()">Use non-existant script</a></li><li>Errors:<ul><li><a href="javascript:nullPointerError();">immediate NPE</a></li><li><a href="javascript:doLater(nullPointerError);">delayed NPE</a></li><li><a href="javascript:throwError();">immediate throw</a></li><li><a href="javascript:doLater(throwError);">delayed throw</a></li></ul></li></ul></body><script src="/inc/vendor.js?5d377da"></script><script src="/inc/app.js?5d377da"></script><script>function doLater(f) {
+  setTimeout(f, 100);
+}
+function nullPointerError() {
+  window.foo();
+}
+nullPointerError = exceptionLogWrapper(nullPointerError);
+
+function throwError() {
+  throw new Error('whoops');
+}
+throwError = exceptionLogWrapper(throwError);
+
+function loadBadScript() {
+  var ga = document.createElement('script');
+  ga.src = '/bad.js';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(ga, s);
+}</script></html>
