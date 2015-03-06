@@ -1,0 +1,33 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^travel(.*)$ http://bernieandju.de$1 [L,R=301]
+
+# move content to new blog
+RewriteRule /the-making-of-vistagraphs/ http://blog.berniesumption.com/photography/the-making-of-vistagraphs/ [R=301,L]
+RewriteRule /the-birds/ http://blog.berniesumption.com/photography/the-birds/ [R=301,L]
+RewriteRule /still/ http://blog.berniesumption.com/photography/still/ [R=301,L]
+RewriteRule /somewheres/ http://blog.berniesumption.com/photography/somewheres/ [R=301,L]
+RewriteRule /portraits-on-location/ http://blog.berniesumption.com/photography/portraits-on-location/ [R=301,L]
+RewriteRule /vistagraphs/ http://blog.berniesumption.com/photography/vistagraphs/ [R=301,L]
+RewriteRule /eyes/ http://blog.berniesumption.com/photography/eyes/ [R=301,L]
+RewriteRule /better-depth-of-field-table/ http://blog.berniesumption.com/photography/better-depth-of-field-table/ [R=301,L]
+RewriteRule /depth-of-field-for-geeks/ http://blog.berniesumption.com/photography/depth-of-field-for-geeks/ [R=301,L]
+RewriteRule /beginners-guide-for-geeks/ http://blog.berniesumption.com/photography/beginners-guide-for-geeks/ [R=301,L]
+RewriteRule /camino-de-santiago/ http://blog.berniesumption.com/photography/camino-de-santiago/ [R=301,L]
+RewriteRule /the-making-of-eyes/ http://blog.berniesumption.com/photography/the-making-of-eyes/ [R=301,L]
+RewriteRule /graphics-programming-environments-3-javascript-canvas/ http://blog.berniesumption.com/software/graphics-programming-environments-3-javascript-canvas/ [R=301,L]
+RewriteRule /graphics-programming-environments-2-actionscript/ http://blog.berniesumption.com/software/graphics-programming-environments-2-actionscript/ [R=301,L]
+RewriteRule /graphics-programming-environments-1-processing/ http://blog.berniesumption.com/software/graphics-programming-environments-1-processing/ [R=301,L]
+RewriteRule /graphics-programming-environments/ http://blog.berniesumption.com/software/graphics-programming-environments/ [R=301,L]
+RewriteRule /introducing-ogre/ http://blog.berniesumption.com/software/introducing-ogre/ [R=301,L]
+RewriteRule /wp-geo-big-map/ http://blog.berniesumption.com/software/wp-geo-big-map/ [R=301,L]
+RewriteRule /inamo-case-study/ http://blog.berniesumption.com/software/inamo-case-study/ [R=301,L]
+RewriteRule /mixins-for-java/ http://blog.berniesumption.com/software/mixins-for-java/ [R=301,L]
+RewriteRule /inheritance-is-evil-and-must-be-destroyed/ http://blog.berniesumption.com/software/inheritance-is-evil-and-must-be-destroyed/ [R=301,L]
+RewriteRule /inamo-mouse-system-multiple-mouse-pointers-in-flash/ http://blog.berniesumption.com/software/inamo-mouse-system-multiple-mouse-pointers-in-flash/ [R=301,L]
+RewriteRule /eval-considered-useful/ http://blog.berniesumption.com/software/eval-considered-useful/ [R=301,L]
+RewriteRule /animator/ http://blog.berniesumption.com/software/animator/ [R=301,L]
+RewriteRule /private-constructors-for-actionscript/ http://blog.berniesumption.com/software/private-constructors-for-actionscript/ [R=301,L]
+RewriteRule /how-to-debug-javascript-in-internet-explorer/ http://blog.berniesumption.com/software/how-to-debug-javascript-in-internet-explorer/ [R=301,L]
+
