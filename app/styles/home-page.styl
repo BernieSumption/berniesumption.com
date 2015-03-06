@@ -7,7 +7,7 @@ $native-photo-height = 270px
 .jumbo-card
   position relative
   padding 1px
-  background url("/images/home-jumbo-card-bg.jpg?DIGEST")
+  overflow: hidden
 
   background-size 100%
   // border-bottom solid 10px $accent_color
@@ -15,6 +15,11 @@ $native-photo-height = 270px
   box-shadow 0 0 25px #000
 
   thick-text-shadow()
+
+  .parallax-image
+    top 0
+    position absolute
+    width 100%
 
 
   // mobile layout first, smallest width will be 420px because of viewport-resize.coffee
@@ -29,6 +34,7 @@ $native-photo-height = 270px
     width $photo-width
     height $native-photo-height * .6
     image '/images/bernie-cv-photo.jpg?DIGEST' 100%
+    background-size 100%
     border-radius 5px
     box-shadow 0 0 20px #000
 
@@ -174,6 +180,7 @@ $native-photo-height = 270px
   display block
   font-style italic
   background linear-gradient(bottom, 75px rgba(0, 0, 0, .25),  rgba(0, 0, 0, 0))
+  background-size 100%
   position absolute
   bottom 0
   left 0
