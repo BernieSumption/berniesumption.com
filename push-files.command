@@ -14,4 +14,4 @@ fi
 
 echo Syncing folder `pwd`
 
-rsync $DRY -avz --perms --chmod=D+r,D+x --exclude=.DS_Store --delete ./ berniesumption.com@berniesumption.com:domains/berniesumption.com/html/
+rsync $DRY -avz --perms --chmod=D+r,D+x --exclude=.DS_Store --checksum --delete ./ berniesumption.com@berniesumption.com:domains/berniesumption.com/html/
