@@ -22,6 +22,6 @@
     "nib": "^1.0.4",
     "retina-brunch": "^1.7.2",
     "stylus-brunch": "^1.8.1",
-    "uglify-js-brunch": "^1.7.7"
+    "uglify-js-brunch": "git://github.com/BernieSumption/uglify-js-brunch.git"
   }
 }

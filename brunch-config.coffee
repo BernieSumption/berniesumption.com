@@ -2,9 +2,7 @@ exports.config =
   # See http://brunch.io/#documentation for docs.
   files:
     javascripts:
-      joinTo:
-        'inc/app.js': /^app/
-        'inc/vendor.js': /^bower_components/
+      joinTo: 'inc/app.js'
     stylesheets:
       joinTo: 'inc/app.css'
   modules:
@@ -24,12 +22,10 @@ exports.config =
       paths:
         public: "dist"
 
-
   plugins:
 
-    # digest:
-    #   referenceFiles: /\.(html|css)$/
-    #   infixes: ['@2x']
+    uglify:
+      outSourceMap: "/inc/app.js.map"
 
     jaded:
       staticPatterns: /^app(\/|\\)pages(\/|\\)(.+)\.jade$/
