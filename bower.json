@@ -2,8 +2,8 @@
   "name": "berniesumption.com",
   "dependencies": {
     "jquery": "~1.11.2",
-    "console-polyfill": "~0.1.2",
     "normalize.css": "~3.0.2",
-    "stacktrace-js": "~0.6.4"
+    "stacktrace-js": "~0.6.4",
+    "console-polyfill": "~0.2.1"
   }
 }
