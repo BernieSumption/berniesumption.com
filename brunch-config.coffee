@@ -16,6 +16,9 @@ exports.config =
   paths:
     public: "debug"
 
+  npm:
+    enabled: false
+
   overrides:
     production:
       sourceMaps: true
