@@ -1,6 +1,0 @@
-{{ define "main"}} {{ .Content }} {{end}} {{ $js := resources.Get
-"content/studies/basic/tmp.ts" | js.Build }} {{ $js.RelPermalink }} {{ .Title }}
-
-<script type="text/javascript" src="{{ $js.RelPermalink }}" defer></script>
-
-{{ .Params.File }}
