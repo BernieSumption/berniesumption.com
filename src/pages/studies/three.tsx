@@ -16,7 +16,8 @@ import {
 } from "three";
 import { ThreeCanvas, ThreeInit } from "../../components/three-canvas";
 
-const threeStudyInit: ThreeInit = ({ scene, camera }) => {
+const threeStudyInit: ThreeInit = ({ scene, camera, renderer }) => {
+  renderer.shadowMap.enabled = true;
   scene.add(new AxesHelper(20));
 
   const plane = new Mesh(

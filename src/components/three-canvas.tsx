@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import { useEffect, useRef, useState } from "react";
 import { Color, PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { NoSSR } from "./no-ssr";
 
 export type ThreeInitParams = {
   scene: Scene;
   camera: PerspectiveCamera;
+  renderer: WebGLRenderer;
 };
 
 export type UpdateFunction = (time: number) => void;
@@ -15,45 +17,50 @@ export type ThreeCanvasProps = {
   init: ThreeInit;
 };
 
-export const ThreeCanvas = ({ init }: ThreeCanvasProps) => {
+export const ThreeCanvas = ({ init }: ThreeCanvasProps) => (
+  <NoSSR>
+    <BrowserThreeCanvas init={init} />
+  </NoSSR>
+);
+
+const BrowserThreeCanvas = ({ init }: ThreeCanvasProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const startRef = useRef(0);
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
+  const onResizeRef = useRef<() => void>();
 
   useEffect(() => {
-    const onResize = () => {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
-
-  useEffect(() => {
-    const canvas = containerRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     const renderer = new WebGLRenderer({});
+    container.appendChild(renderer.domElement);
     renderer.setClearColor(new Color(0x000000));
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(width, height, false);
-    renderer.shadowMap.enabled = true;
 
     const scene = new Scene();
-    const camera = new PerspectiveCamera(45, width / height);
+    const camera = new PerspectiveCamera(45);
 
-    canvas.appendChild(renderer.domElement);
+    const handleResize = () => {
+      const width = container.offsetWidth;
+      const height = container.offsetHeight;
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+    handleResize();
 
-    const updateFunction = init({ scene, camera });
-
-    const render = () => renderer.render(scene, camera);
+    const updateFunction = init({ scene, camera, renderer });
 
     if (!startRef.current) {
       startRef.current = performance.now();
     }
 
-    Next up: get this to re-render but not re-initialise when window resizes
+    const render = () => renderer.render(scene, camera);
+
+    onResizeRef.current = () => {
+      handleResize();
+      render();
+    };
 
     let cancelled = false;
     if (updateFunction) {
@@ -61,24 +68,29 @@ export const ThreeCanvas = ({ init }: ThreeCanvasProps) => {
         if (!cancelled) {
           window.requestAnimationFrame(updateAndRender);
           updateFunction((performance.now() - startRef.current) / 1000);
-          render();
+          renderer.render(scene, camera);
         }
       };
       updateAndRender();
     } else {
-      render();
+      renderer.render(scene, camera);
     }
     return () => {
-      canvas.removeChild(renderer.domElement);
+      container.removeChild(renderer.domElement);
       renderer.forceContextLoss();
       renderer.dispose();
       cancelled = true;
+      onResizeRef.current = undefined;
     };
   }, [init]);
 
   useEffect(() => {
-
-  }, [width, height])
+    const onResize = () => {
+      onResizeRef.current?.();
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   return <Container ref={containerRef} />;
 };
