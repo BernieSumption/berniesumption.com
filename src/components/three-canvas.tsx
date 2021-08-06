@@ -7,6 +7,7 @@ export type ThreeInitParams = {
   scene: Scene;
   camera: PerspectiveCamera;
   renderer: WebGLRenderer;
+  startTime: number;
 };
 
 export type UpdateFunction = (time: number) => void;
@@ -32,7 +33,7 @@ const BrowserThreeCanvas = ({ init }: ThreeCanvasProps) => {
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new WebGLRenderer({});
+    const renderer = new WebGLRenderer({ antialias: true });
     container.appendChild(renderer.domElement);
     renderer.setClearColor(new Color(0x000000));
 
@@ -49,11 +50,14 @@ const BrowserThreeCanvas = ({ init }: ThreeCanvasProps) => {
     };
     handleResize();
 
-    const updateFunction = init({ scene, camera, renderer });
+    const updateFunction = init({
+      scene,
+      camera,
+      renderer,
+      startTime: performance.now() / 1000,
+    });
 
-    if (!startRef.current) {
-      startRef.current = performance.now();
-    }
+    console.log("!!!");
 
     const render = () => renderer.render(scene, camera);
 
@@ -67,7 +71,7 @@ const BrowserThreeCanvas = ({ init }: ThreeCanvasProps) => {
       const updateAndRender = () => {
         if (!cancelled) {
           window.requestAnimationFrame(updateAndRender);
-          updateFunction((performance.now() - startRef.current) / 1000);
+          updateFunction(performance.now() / 1000);
           renderer.render(scene, camera);
         }
       };
