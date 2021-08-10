@@ -26,7 +26,6 @@ export const ThreeCanvas = ({ init }: ThreeCanvasProps) => (
 
 const BrowserThreeCanvas = ({ init }: ThreeCanvasProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const startRef = useRef(0);
   const onResizeRef = useRef<() => void>();
 
   useEffect(() => {
@@ -56,8 +55,6 @@ const BrowserThreeCanvas = ({ init }: ThreeCanvasProps) => {
       renderer,
       startTime: performance.now() / 1000,
     });
-
-    console.log("!!!");
 
     const render = () => renderer.render(scene, camera);
 
