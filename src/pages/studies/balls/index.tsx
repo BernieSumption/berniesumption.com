@@ -14,7 +14,6 @@ import {
   SpotLight,
   Texture,
   TextureLoader,
-  Vector2,
   Vector3,
 } from "three";
 import { OrbitControls } from "three-orbitcontrols-ts";
@@ -26,8 +25,6 @@ const emitterCount = 15;
 const twoPi = Math.PI * 2;
 
 const ballsInit: ThreeInit = ({ scene, camera, renderer, startTime }) => {
-  scene.add(new AxesHelper(20));
-
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.rotateSpeed = 0.1;
   controls.enableZoom = false;
