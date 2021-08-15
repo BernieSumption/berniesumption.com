@@ -1,6 +1,7 @@
 import {
   AmbientLight,
   BufferAttribute,
+  CanvasTexture,
   CircleGeometry,
   Color,
   Float32BufferAttribute,
@@ -16,13 +17,15 @@ import {
 import { ThreeCanvas, ThreeInit } from "../../../components/three-canvas";
 import * as _ from "lodash";
 import { OrbitControls } from "three-orbitcontrols-ts";
-import { loadTexture } from "../../../utils";
+import { renderShadowTexture } from "../../../utils";
 
 type Tuple3 = [number, number, number];
 
 const timeBetweenTransitions = 5;
 const transitionDuration = 2;
 const transitionOffset = 1;
+const shadowTransitionDuration = 2;
+const shadowTransitionDelay = 1.75;
 const peakActiveChance = 0.85;
 const activeChancePower = 8;
 const colorSequence: Tuple3[] = [
@@ -87,17 +90,8 @@ const faceShadingInit: ThreeInit = ({ scene, camera, renderer }) => {
   });
   geometry.setAttribute("color", colors);
 
-  const shadowMaterial = new MeshBasicMaterial({
-    map: loadTexture("/assets/studies/face-shading/grey-shadow.png"),
-    color: new Color(0xff8000),
-    transparent: true,
-    depthWrite: false,
-    opacity: 0.65,
-  });
-  const shadowMesh = new Mesh(new PlaneGeometry(20, 20), shadowMaterial);
-  shadowMesh.rotation.x = -0.5 * Math.PI;
-  shadowMesh.position.setY(-11.9);
-  scene.add(shadowMesh);
+  const shadow = new Shadow();
+  scene.add(shadow);
 
   const floor = new Mesh(
     new CircleGeometry(100, 50),
@@ -108,34 +102,20 @@ const faceShadingInit: ThreeInit = ({ scene, camera, renderer }) => {
   scene.add(floor);
 
   let currentColorIndex = 0;
-  let floorColorIndex = 0;
   return (time) => {
     const thisColorIndex =
       Math.floor(time / timeBetweenTransitions) % colorSequence.length;
     if (thisColorIndex !== currentColorIndex) {
-      startFaceTransitions(thisColorIndex);
+      startTransitions(thisColorIndex);
     }
     faces.forEach((f) => f.update(time));
+    shadow.update(time);
     controls.update();
-
-    const thisFloorColorIndex =
-      Math.floor(
-        (time - transitionOffset - transitionDuration / 2) /
-          timeBetweenTransitions
-      ) % colorSequence.length;
-    if (floorColorIndex !== thisFloorColorIndex) {
-      floorColorIndex = thisFloorColorIndex;
-      shadowMaterial.color = threeColorSequence[thisFloorColorIndex];
-    }
   };
 
-  function startFaceTransitions(nextColorIndex: number) {
-    faces.forEach((f) =>
-      f.startTransition(
-        colorSequence[currentColorIndex],
-        colorSequence[nextColorIndex]
-      )
-    );
+  function startTransitions(nextColorIndex: number) {
+    faces.forEach((f) => f.startTransition(currentColorIndex, nextColorIndex));
+    shadow.startTransition(currentColorIndex, nextColorIndex);
     currentColorIndex = nextColorIndex;
   }
 };
@@ -148,7 +128,6 @@ class Face {
   public centroid: Vector3;
   private transitionStartTime = 0;
   private currentTime = 0;
-  private transitionRunning = false;
   private from = colorSequence[0];
   private to = colorSequence[0];
   public proportionalPosition = 0;
@@ -174,31 +153,28 @@ class Face {
 
   public update(time: number) {
     this.currentTime = time;
-    if (this.transitionRunning) {
-      if (this.currentTime < this.transitionStartTime) return;
-      const progress = Math.min(
-        1,
-        (time - this.transitionStartTime) / transitionDuration
-      );
-      const whiteChance =
-        Math.pow(1 - Math.abs(progress * 2 - 1), activeChancePower) *
-        peakActiveChance;
-      if (Math.random() < whiteChance) {
-        this.setColor(activeColor);
-      } else if (progress < 0.5) {
-        this.setColor(this.from);
-      } else {
-        this.setColor(this.to);
-      }
+    if (this.currentTime < this.transitionStartTime) return;
+    const progress = Math.min(
+      1,
+      (time - this.transitionStartTime) / transitionDuration
+    );
+    const whiteChance =
+      Math.pow(1 - Math.abs(progress * 2 - 1), activeChancePower) *
+      peakActiveChance;
+    if (Math.random() < whiteChance) {
+      this.setColor(activeColor);
+    } else if (progress < 0.5) {
+      this.setColor(this.from);
+    } else {
+      this.setColor(this.to);
     }
   }
 
-  public startTransition(from: Tuple3, to: Tuple3) {
-    this.from = from;
-    this.to = to;
+  public startTransition(from: number, to: number) {
+    this.from = colorSequence[from];
+    this.to = colorSequence[to];
     this.transitionStartTime =
       this.currentTime + this.proportionalPosition * transitionOffset;
-    this.transitionRunning = true;
   }
 
   private setColor(color: Tuple3) {
@@ -206,5 +182,48 @@ class Face {
     this.colors.setXYZ(this.start + 1, ...color);
     this.colors.setXYZ(this.start + 2, ...color);
     this.colors.needsUpdate = true;
+  }
+}
+
+class Shadow extends Mesh {
+  private transitionStartTime = 0;
+  private currentTime = 0;
+  private from = threeColorSequence[0];
+  private to = threeColorSequence[0];
+  public proportionalPosition = 0;
+
+  constructor() {
+    super(
+      new PlaneGeometry(20, 20),
+      new MeshBasicMaterial({
+        map: new CanvasTexture(renderShadowTexture(1024, new Color(0x303030))),
+        color: threeColorSequence[0],
+        transparent: true,
+        depthWrite: false,
+        opacity: 0.65,
+      })
+    );
+    this.rotation.x = -0.5 * Math.PI;
+    this.position.setY(-11.9);
+  }
+
+  public startTransition(from: number, to: number) {
+    console.log("tx", from, to);
+    this.from = threeColorSequence[from];
+    this.to = threeColorSequence[to];
+    this.transitionStartTime = this.currentTime + shadowTransitionDelay;
+  }
+
+  public update(time: number) {
+    this.currentTime = time;
+    if (this.currentTime < this.transitionStartTime) return;
+    const progress = Math.min(
+      1,
+      (time - this.transitionStartTime) / shadowTransitionDuration
+    );
+    (this.material as MeshBasicMaterial).color = this.from.lerp(
+      this.to,
+      progress
+    );
   }
 }

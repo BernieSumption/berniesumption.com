@@ -1,6 +1,7 @@
 import {
   AmbientLight,
   AxesHelper,
+  CanvasTexture,
   Color,
   MathUtils,
   Mesh,
@@ -19,7 +20,7 @@ import {
 import { OrbitControls } from "three-orbitcontrols-ts";
 import { ThreeCanvas, ThreeInit } from "../../../components/three-canvas";
 import { degrees } from "../../../math";
-import { loadTexture } from "../../../utils";
+import { loadTexture, renderShadowTexture } from "../../../utils";
 
 const floorRadius = 10;
 const emitterCount = 15;
@@ -132,7 +133,7 @@ class Ball {
     scene.add(this.pingMesh);
 
     this.shadowMaterial = new MeshBasicMaterial({
-      map: loadTexture("/assets/studies/balls/shadow.png"),
+      map: new CanvasTexture(renderShadowTexture(128, new Color(0x000000))),
       transparent: true,
       depthWrite: false,
     });
