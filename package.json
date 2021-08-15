@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
+    "lodash": "^4.17.21",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -18,6 +19,7 @@
     "three-orbitcontrols-ts": "^0.1.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.172",
     "@types/react": "17.0.15",
     "@types/three": "^0.130.1",
     "eslint": "7.32.0",

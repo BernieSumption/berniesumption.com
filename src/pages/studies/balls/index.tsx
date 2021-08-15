@@ -19,6 +19,7 @@ import {
 import { OrbitControls } from "three-orbitcontrols-ts";
 import { ThreeCanvas, ThreeInit } from "../../../components/three-canvas";
 import { degrees } from "../../../math";
+import { loadTexture } from "../../../utils";
 
 const floorRadius = 10;
 const emitterCount = 15;
@@ -89,10 +90,6 @@ const bounceAttenuation = 0.8;
 const ballFadeOutDistance = 5;
 const ballSaturation = 1;
 const ballLightness = 0.5;
-const loader = new TextureLoader();
-const textureCache: Record<string, Texture> = {};
-const loadTexture = (path: string) =>
-  textureCache[path] || (textureCache[path] = loader.load(path));
 const pingDuration = 1;
 const shadowStartHeight = 2;
 const shadowLowSize = 1;
