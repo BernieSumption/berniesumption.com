@@ -21,6 +21,7 @@ import { renderShadowTexture } from "../../../utils";
 
 type Tuple3 = [number, number, number];
 
+const shapeComplexity = 4;
 const timeBetweenTransitions = 5;
 const transitionDuration = 2;
 const transitionOffset = 1;
@@ -71,7 +72,7 @@ const faceShadingInit: ThreeInit = ({ scene, camera, renderer }) => {
     vertexColors: true,
   });
 
-  const geometry = new IcosahedronGeometry(10, 3);
+  const geometry = new IcosahedronGeometry(10, shapeComplexity);
   const shape = new Mesh(geometry, material);
   scene.add(shape);
 

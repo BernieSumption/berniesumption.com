@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useRef, useState } from "react";
 import { Color, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { NoSSR } from "./no-ssr";
+import Stats from "stats.js";
 
 export type ThreeInitParams = {
   scene: Scene;
@@ -27,6 +28,16 @@ export const ThreeCanvas = ({ init }: ThreeCanvasProps) => (
 const BrowserThreeCanvas = ({ init }: ThreeCanvasProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const onResizeRef = useRef<() => void>();
+
+  const stats = useRef<Stats>();
+
+  useEffect(() => {
+    if (document.location.search.indexOf("stats=1") !== -1) {
+      stats.current = new Stats();
+      stats.current.showPanel(0);
+      document.body.appendChild(stats.current.dom);
+    }
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -67,9 +78,11 @@ const BrowserThreeCanvas = ({ init }: ThreeCanvasProps) => {
     if (updateFunction) {
       const updateAndRender = () => {
         if (!cancelled) {
+          stats.current?.begin();
           window.requestAnimationFrame(updateAndRender);
           updateFunction(performance.now() / 1000);
           renderer.render(scene, camera);
+          stats.current?.end();
         }
       };
       updateAndRender();
