@@ -14,10 +14,10 @@ import {
   SpotLight,
   Vector3,
 } from "three";
-import { ThreeCanvas, ThreeInit } from "../../../components/three-canvas";
+import { ThreeCanvas, ThreeInit } from "../../components/three-canvas";
 import * as _ from "lodash";
 import { OrbitControls } from "three-orbitcontrols-ts";
-import { renderShadowTexture } from "../../../utils";
+import { faceCentroid, renderShadowTexture } from "../../utils";
 
 type Tuple3 = [number, number, number];
 
@@ -82,7 +82,7 @@ const faceShadingInit: ThreeInit = ({ scene, camera, renderer }) => {
   let faces: Face[] = [];
   const faceCount = vertices.count / 3;
   for (let i = 0; i < faceCount; ++i) {
-    faces.push(new Face(vertices as any, colors, i * 3));
+    faces.push(new Face(vertices as any, colors, i));
   }
   faces = _.shuffle(faces);
   faces = _.sortBy(faces, (f) => f.centroid.y).reverse();
@@ -136,19 +136,9 @@ class Face {
   constructor(
     positions: BufferAttribute,
     private colors: BufferAttribute,
-    private start: number
+    private faceIndex: number
   ) {
-    this.centroid = new Vector3();
-    for (let i = 0; i < 3; i++) {
-      const index = start + i;
-      this.centroid.x += positions.getX(index);
-      this.centroid.y += positions.getY(index);
-      this.centroid.z += positions.getZ(index);
-    }
-    this.centroid.x /= 3;
-    this.centroid.y /= 3;
-    this.centroid.z /= 3;
-
+    this.centroid = faceCentroid(positions, faceIndex);
     this.setColor(colorSequence[0]);
   }
 
@@ -179,9 +169,10 @@ class Face {
   }
 
   private setColor(color: Tuple3) {
-    this.colors.setXYZ(this.start, ...color);
-    this.colors.setXYZ(this.start + 1, ...color);
-    this.colors.setXYZ(this.start + 2, ...color);
+    const start = this.faceIndex * 3;
+    this.colors.setXYZ(start, ...color);
+    this.colors.setXYZ(start + 1, ...color);
+    this.colors.setXYZ(start + 2, ...color);
     this.colors.needsUpdate = true;
   }
 }

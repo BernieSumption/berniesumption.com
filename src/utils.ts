@@ -1,4 +1,4 @@
-import { Color, Texture, TextureLoader } from "three";
+import { BufferAttribute, Color, Texture, TextureLoader, Vector3 } from "three";
 
 let loader: TextureLoader | undefined;
 let textureCache: Record<string, Texture> | undefined;
@@ -27,4 +27,38 @@ export const renderShadowTexture = (size: number, color: Color) => {
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, size, size);
   return canvas;
+};
+
+export const randomPointOnFace = (
+  a: Vector3,
+  b: Vector3,
+  c: Vector3
+): Vector3 => {
+  const ap = Math.random();
+  const bp = Math.random();
+  const cp = Math.random();
+  const scale = 1 / (ap + bp + cp);
+  return new Vector3()
+    .addScaledVector(a, ap * scale)
+    .addScaledVector(b, bp * scale)
+    .addScaledVector(c, cp * scale);
+};
+
+export const faceCentroid = (
+  positions: BufferAttribute,
+  faceIndex: number
+): Vector3 => {
+  const start = faceIndex * 3;
+  const centroid = new Vector3(
+    positions.getX(start + 0) +
+      positions.getX(start + 1) +
+      positions.getX(start + 2),
+    positions.getY(start + 0) +
+      positions.getY(start + 1) +
+      positions.getY(start + 2),
+    positions.getZ(start + 0) +
+      positions.getZ(start + 1) +
+      positions.getZ(start + 2)
+  );
+  return centroid.divideScalar(3);
 };

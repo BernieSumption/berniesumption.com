@@ -1,6 +1,5 @@
 import {
   AmbientLight,
-  AxesHelper,
   CanvasTexture,
   Color,
   MathUtils,
@@ -13,14 +12,12 @@ import {
   Scene,
   SphereGeometry,
   SpotLight,
-  Texture,
-  TextureLoader,
   Vector3,
 } from "three";
 import { OrbitControls } from "three-orbitcontrols-ts";
-import { ThreeCanvas, ThreeInit } from "../../../components/three-canvas";
-import { degrees } from "../../../math";
-import { loadTexture, renderShadowTexture } from "../../../utils";
+import { ThreeCanvas, ThreeInit } from "../../components/three-canvas";
+import { degrees } from "../../math";
+import { loadTexture, renderShadowTexture } from "../../utils";
 
 const floorRadius = 10;
 const emitterCount = 15;
