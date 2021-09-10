@@ -206,7 +206,6 @@ class Shadow extends Mesh {
   }
 
   public startTransition(from: number, to: number) {
-    console.log("tx", from, to);
     this.from = threeColorSequence[from];
     this.to = threeColorSequence[to];
     this.transitionStartTime = this.currentTime + shadowTransitionDelay;

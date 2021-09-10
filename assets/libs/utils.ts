@@ -5,7 +5,7 @@ import {
   Texture,
   TextureLoader,
   Vector3,
-} from "three";
+} from "/vendor/three/three.module.js";
 
 let loader: TextureLoader | undefined;
 let textureCache: Record<string, Texture> | undefined;
@@ -20,7 +20,7 @@ export const loadTexture = (path: string) => {
 export const memoize = <T>(f: () => T): (() => T) => {
   let cache: T;
   let called = false;
-  return function (...args: any) {
+  return function (this: any, ...args: any) {
     if (!called) {
       called = true;
       cache = f.apply(this, args);

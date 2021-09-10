@@ -13,10 +13,12 @@ import {
   SphereGeometry,
   SpotLight,
   Vector3,
-} from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { initThreeCanvas, ThreeInitFunction } from "./init-three-canvas";
-import { degrees, memoize, renderShadowTexture } from "./utils";
+} from "/vendor/three/three.module.js";
+
+import { OrbitControls } from "/vendor/three/OrbitControls.js";
+
+import { initThreeCanvas, ThreeInitFunction } from "/libs/init-three-canvas";
+import { degrees, memoize, renderShadowTexture } from "/libs/utils";
 
 const floorRadius = 10;
 const emitterCount = 15;
@@ -48,7 +50,6 @@ const ballsInit: ThreeInitFunction = ({
   for (let i = 0; i < emitterCount; i++) {
     const oscillationsPerMinute = 51 + i;
     const period = oscillationsPerMinute / 60 + 1;
-    console.log(period);
     emitters.push(new Emitter(scene, (i / emitterCount) * twoPi, period));
   }
 
@@ -97,6 +98,9 @@ const shadowStartHeight = 2;
 const shadowLowSize = 1;
 const shadowHighSize = 1;
 const shadowLowOpacity = 0.5;
+const ballGeometry = new SphereGeometry(ballRadius, 10, 10);
+const pingGeometry = new PlaneGeometry(pingSize, pingSize);
+const shadowGeometry = new PlaneGeometry();
 
 class Ball {
   private ballMesh: Mesh;
@@ -109,17 +113,13 @@ class Ball {
   private velocity: Vector3;
   private hue: number;
 
-  private static ballGeometry = new SphereGeometry(ballRadius, 10, 10);
-  private static pingGeometry = new PlaneGeometry(pingSize, pingSize);
-  private static shadowGeometry = new PlaneGeometry();
-
   constructor(private scene: Scene, yRotation: number) {
     this.hue = yRotation / 2 / Math.PI;
     this.ballMaterial = new MeshPhongMaterial({
       color: new Color().setHSL(this.hue, ballSaturation, ballLightness),
       specular: new Color(0x222222),
     });
-    this.ballMesh = new Mesh(Ball.ballGeometry, this.ballMaterial);
+    this.ballMesh = new Mesh(ballGeometry, this.ballMaterial);
     this.ballMesh.position.set(0, 0.5, 0);
     scene.add(this.ballMesh);
 
@@ -129,7 +129,7 @@ class Ball {
       transparent: true,
       depthWrite: false,
     });
-    this.pingMesh = new Mesh(Ball.pingGeometry, this.pingMaterial);
+    this.pingMesh = new Mesh(pingGeometry, this.pingMaterial);
     this.pingMesh.rotation.x = -0.5 * Math.PI;
     scene.add(this.pingMesh);
 
@@ -139,7 +139,7 @@ class Ball {
       transparent: true,
       depthWrite: false,
     });
-    this.shadowMesh = new Mesh(Ball.shadowGeometry, this.shadowMaterial);
+    this.shadowMesh = new Mesh(shadowGeometry, this.shadowMaterial);
     this.shadowMesh.rotation.x = -0.5 * Math.PI;
     scene.add(this.shadowMesh);
 

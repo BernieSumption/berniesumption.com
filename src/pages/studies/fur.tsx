@@ -63,7 +63,6 @@ class Furry extends Object3D {
       .toNonIndexed()
       .getAttribute("position") as BufferAttribute;
     const faceCount = vertices.count / 3;
-    console.log(faceCount);
     const radius = 0.01;
     const height = 1;
     const mesh = new InstancedMesh(

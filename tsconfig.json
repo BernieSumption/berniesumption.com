@@ -5,6 +5,18 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "module": "ES6",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "/vendor/three/three.module.js": [
+        "./node_modules/@types/three/index.d.ts"
+      ],
+      "/vendor/three/OrbitControls.js": [
+        "./node_modules/@types/three/examples/jsm/controls/OrbitControls.d.ts"
+      ],
+      "/vendor/three/stats.module.js": [
+        "./node_modules/@types/three/examples/jsm/libs/stats.module.d.ts"
+      ],
+      "/libs/*": ["./assets/libs/*"]
+    }
   }
 }

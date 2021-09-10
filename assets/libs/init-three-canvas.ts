@@ -1,4 +1,9 @@
-import { Color, PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import {
+  Color,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
+} from "/vendor/three/three.module.js";
 
 export type ThreeInitParams = {
   scene: Scene;

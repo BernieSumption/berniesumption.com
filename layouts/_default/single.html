@@ -4,12 +4,15 @@
   {{ $style := resources.Get "style/study.scss" | resources.ToCSS }}
   <link rel="stylesheet" type="text/css" href="{{ $style.RelPermalink }}">
 
-  {{/* if page is at /lala/foo/bar/, look for assets/foo/bar/bar.ts */}}
-  {{ $scriptFile := replaceRE ".*/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/?" "$1/$2/$2.ts" .Page.RelPermalink }}
+  {{/* if page is at /lala/foo/bar/, look for bar.ts */}}
+  {{ $scriptFile := replaceRE ".*/([a-zA-Z0-9-]+)/?" "/js/studies/$1.ts" .Page.RelPermalink }}
   {{ with resources.Get $scriptFile  }}
-    {{ $opts := dict "shims" (dict "three" ) }}
-    {{ $js := . | js.Build $opts }}
-    <script type="text/javascript" src="{{ $js.RelPermalink }}" defer></script>
+    {{ $js := . | js.Build (dict
+      "format" "esm"
+      "target" "es2018"
+      "externals" (slice "/vendor/*")
+      ) }}
+    <script type="module">{{ $js.Content | safeJS }}</script>
   {{ else }}
     {{ errorf "Could not find resource %#v" $scriptFile }}
   {{ end }}
