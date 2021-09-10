@@ -4,4 +4,6 @@
   <title>{{ .Site.Title }}</title>
   <meta name="description" content="Bernie Sumption's portfolio website" />
   <link rel="icon" href="/favicon.ico" />
+  {{ $style := resources.Get "style/main.scss" | resources.ToCSS }}
+  <link rel="stylesheet" type="text/css" href="{{ $style.RelPermalink }}">
 </head>

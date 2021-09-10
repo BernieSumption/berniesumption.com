@@ -1,3 +1,8 @@
 baseURL: "http://berniesumption.com/"
 languageCode: "en-gb"
 title: "Bernie Sumption"
+build:
+  noJSConfigInAssets: true
+mounts:
+  - source: node_modules/three
+    target:
