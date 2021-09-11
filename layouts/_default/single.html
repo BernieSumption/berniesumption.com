@@ -4,7 +4,6 @@
   {{ $style := resources.Get "style/study.scss" | resources.ToCSS }}
   <link rel="stylesheet" type="text/css" href="{{ $style.RelPermalink }}">
 
-  {{/* if page is at /lala/foo/bar/, look for bar.ts */}}
   {{ $scriptFile := replaceRE ".*/([a-zA-Z0-9-]+)/?" "/js/studies/$1.ts" .Page.RelPermalink }}
   {{ with resources.Get $scriptFile  }}
     {{ $js := . | js.Build (dict

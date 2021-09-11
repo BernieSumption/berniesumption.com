@@ -134,7 +134,6 @@ class Ball {
     scene.add(this.pingMesh);
 
     this.shadowMaterial = new MeshBasicMaterial({
-      // TODO cache this
       map: getBallShadowTexture(),
       transparent: true,
       depthWrite: false,

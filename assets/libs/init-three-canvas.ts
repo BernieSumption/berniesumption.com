@@ -5,6 +5,8 @@ import {
   WebGLRenderer,
 } from "/vendor/three/three.module.js";
 
+import Stats from "/vendor/three/stats.module.js";
+
 export type ThreeInitParams = {
   scene: Scene;
   camera: PerspectiveCamera;
@@ -25,6 +27,13 @@ export const initThreeCanvas = (init: ThreeInitFunction) => {
   if (!container) {
     console.error(`#${containerId} not found`);
     return;
+  }
+
+  let stats: Stats | null;
+  if (document.location.search.indexOf("stats=1") !== -1) {
+    stats = Stats();
+    stats.showPanel(0);
+    document.body.appendChild(stats.dom);
   }
 
   const renderer = new WebGLRenderer({ antialias: true });
@@ -57,11 +66,11 @@ export const initThreeCanvas = (init: ThreeInitFunction) => {
   if (updateFunction) {
     const updateAndRender = () => {
       if (!cancelled) {
-        // TODO stats.current?.begin();
+        stats?.begin();
         window.requestAnimationFrame(updateAndRender);
         updateFunction(performance.now() / 1000);
         renderer.render(scene, camera);
-        // TODO stats.current?.end();
+        stats?.end();
       }
     };
     updateAndRender();
@@ -73,16 +82,6 @@ export const initThreeCanvas = (init: ThreeInitFunction) => {
     handleResize();
     render();
   });
-
-  // const stats = useRef<Stats>();
-
-  // useEffect(() => {
-  //   if (document.location.search.indexOf("stats=1") !== -1) {
-  //     stats.current = new Stats();
-  //     stats.current.showPanel(0);
-  //     document.body.appendChild(stats.current.dom);
-  //   }
-  // }, []);
 };
 
 const onResize = (el: HTMLElement, callback: () => void) => {
