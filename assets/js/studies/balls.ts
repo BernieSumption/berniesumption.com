@@ -17,73 +17,12 @@ import {
 
 import { OrbitControls } from "/vendor/three/OrbitControls.js";
 
-import { initThreeCanvas, ThreeInitFunction } from "/libs/init-three-canvas";
+import { initThreeCanvas } from "/libs/init-three-canvas";
 import { degrees, memoize, renderShadowTexture } from "/libs/utils";
 
 const floorRadius = 10;
 const emitterCount = 15;
 const twoPi = Math.PI * 2;
-
-const ballsInit: ThreeInitFunction = ({
-  scene,
-  camera,
-  renderer,
-  startTime,
-}) => {
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.rotateSpeed = 0.1;
-  controls.enableZoom = false;
-  controls.enablePan = false;
-  controls.enableDamping = true;
-
-  const floor = new Mesh(
-    new RingGeometry(1, floorRadius, 50),
-    new MeshLambertMaterial({ color: 0xaaaaaa })
-  );
-  floor.rotation.x = -0.5 * Math.PI;
-  floor.position.set(0, 0, 0);
-  scene.add(floor);
-
-  const emitters: Emitter[] = [];
-  const balls: Ball[] = [];
-
-  for (let i = 0; i < emitterCount; i++) {
-    const oscillationsPerMinute = 51 + i;
-    const period = oscillationsPerMinute / 60 + 1;
-    emitters.push(new Emitter(scene, (i / emitterCount) * twoPi, period));
-  }
-
-  camera.position.set(-15, 20, 15);
-  camera.lookAt(scene.position);
-
-  const light = new SpotLight(0xffffff);
-  light.position.set(5, 20, 5);
-  scene.add(light);
-
-  const ambientLight = new AmbientLight(0xffffff, 0.25);
-  scene.add(ambientLight);
-
-  let lastTime = startTime;
-
-  return (time) => {
-    const dt = Math.min(time - lastTime, 1 / 30);
-    lastTime = time;
-    emitters.forEach((e) => {
-      const ball = e.update(dt);
-      if (ball) {
-        balls.push(ball);
-      }
-    });
-    balls.forEach((b) => {
-      b.update(dt);
-      if (!b.alive()) {
-        b.remove();
-        balls.splice(balls.indexOf(b), 1);
-      }
-    });
-    controls.update();
-  };
-};
 
 const ballInitialAngle = degrees(25);
 const ballInitialSpeed = 9;
@@ -247,4 +186,58 @@ class Emitter {
   }
 }
 
-initThreeCanvas(ballsInit);
+initThreeCanvas(({ scene, camera, renderer, startTime }) => {
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.rotateSpeed = 0.1;
+  controls.enableZoom = false;
+  controls.enablePan = false;
+  controls.enableDamping = true;
+
+  const floor = new Mesh(
+    new RingGeometry(1, floorRadius, 50),
+    new MeshLambertMaterial({ color: 0xaaaaaa })
+  );
+  floor.rotation.x = -0.5 * Math.PI;
+  floor.position.set(0, 0, 0);
+  scene.add(floor);
+
+  const emitters: Emitter[] = [];
+  const balls: Ball[] = [];
+
+  for (let i = 0; i < emitterCount; i++) {
+    const oscillationsPerMinute = 51 + i;
+    const period = oscillationsPerMinute / 60 + 1;
+    emitters.push(new Emitter(scene, (i / emitterCount) * twoPi, period));
+  }
+
+  camera.position.set(-15, 20, 15);
+  camera.lookAt(scene.position);
+
+  const light = new SpotLight(0xffffff);
+  light.position.set(5, 20, 5);
+  scene.add(light);
+
+  const ambientLight = new AmbientLight(0xffffff, 0.25);
+  scene.add(ambientLight);
+
+  let lastTime = startTime;
+
+  return (time) => {
+    const dt = Math.min(time - lastTime, 1 / 30);
+    lastTime = time;
+    emitters.forEach((e) => {
+      const ball = e.update(dt);
+      if (ball) {
+        balls.push(ball);
+      }
+    });
+    balls.forEach((b) => {
+      b.update(dt);
+      if (!b.alive()) {
+        b.remove();
+        balls.splice(balls.indexOf(b), 1);
+      }
+    });
+    controls.update();
+  };
+});

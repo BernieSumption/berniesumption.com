@@ -20,12 +20,10 @@ export type ThreeInitFunction = (
   params: ThreeInitParams
 ) => ThreeUpdateFunction | void;
 
-const containerId = "study-container";
-
 export const initThreeCanvas = (init: ThreeInitFunction) => {
-  const container = document.getElementById(containerId);
+  const container = document.getElementById("study-container");
   if (!container) {
-    console.error(`#${containerId} not found`);
+    console.error(`#study-container not found`);
     return;
   }
 

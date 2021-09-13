@@ -84,3 +84,29 @@ export const faceCentroid = (
 };
 
 export const degrees = (d: number) => (d / 180) * Math.PI;
+
+export const shuffle = <T>(arr: T[]): T[] => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let x = arr[i];
+    arr[i] = arr[j];
+    arr[j] = x;
+  }
+  return arr;
+};
+
+export const sortBy = <T, P extends keyof T>(
+  arr: T[],
+  f: (item: T) => any
+): T[] =>
+  arr.sort((a, b) => {
+    let aValue = f(a);
+    let bValue = f(b);
+    if (aValue < bValue) {
+      return -1;
+    }
+    if (aValue > bValue) {
+      return 1;
+    }
+    return 0;
+  });

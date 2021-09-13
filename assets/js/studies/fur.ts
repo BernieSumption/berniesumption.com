@@ -9,38 +9,12 @@ import {
   Object3D,
   SphereGeometry,
   SpotLight,
-} from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { ThreeCanvas, ThreeInit } from "../../../assets/studies/balls/init-three-canvas";
-import { faceCentroid } from "../../../assets/studies/balls/utils";
+} from "/vendor/three/three.module.js";
 
-const scratchInit: ThreeInit = ({ scene, camera, renderer }) => {
-  renderer.setClearColor(0);
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.rotateSpeed = 0.1;
-  controls.enableZoom = false;
-  controls.enablePan = false;
-  controls.enableDamping = true;
+import { OrbitControls } from "/vendor/three/OrbitControls.js";
 
-  const light = new SpotLight(0xffffff);
-  light.position.set(5, 20, 5);
-  scene.add(light);
-
-  scene.add(new AmbientLight(0xffffff, 0.25));
-
-  scene.add(new Furry(new SphereGeometry(1)));
-
-  camera.position.set(-2, 3, 2.5);
-  camera.lookAt(scene.position);
-
-  return () => {
-    controls.update();
-  };
-};
-
-const ScratchStudy = () => <ThreeCanvas init={scratchInit} />;
-
-export default ScratchStudy;
+import { initThreeCanvas } from "/libs/init-three-canvas";
+import { faceCentroid } from "/libs/utils";
 
 // TODO - orient strands pointing outwards - implement my own geometry generation
 // TODO - vertex shader making strands wibble
@@ -76,8 +50,31 @@ class Furry extends Object3D {
     for (let i = 0; i < faceCount; ++i) {
       dummy.position.copy(faceCentroid(vertices, i));
       dummy.updateMatrix();
-      Next up: figure out how to get rotation from centroid
       mesh.setMatrixAt(i, dummy.matrix);
     }
   }
 }
+
+initThreeCanvas(({ scene, camera, renderer }) => {
+  renderer.setClearColor(0);
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.rotateSpeed = 0.1;
+  controls.enableZoom = false;
+  controls.enablePan = false;
+  controls.enableDamping = true;
+
+  const light = new SpotLight(0xffffff);
+  light.position.set(5, 20, 5);
+  scene.add(light);
+
+  scene.add(new AmbientLight(0xffffff, 0.25));
+
+  scene.add(new Furry(new SphereGeometry(1)));
+
+  camera.position.set(-2, 3, 2.5);
+  camera.lookAt(scene.position);
+
+  return () => {
+    controls.update();
+  };
+});

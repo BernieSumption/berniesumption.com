@@ -11,7 +11,8 @@
       "target" "es2018"
       "externals" (slice "/vendor/*")
       ) }}
-    <script type="module">{{ $js.Content | safeJS }}</script>
+    {{ $scriptWithoutComments := replaceRE "(^|\\r?\\n)//.*" "" $js.Content | safeJS }}
+    <script type="module">{{ $scriptWithoutComments }}</script>
   {{ else }}
     {{ errorf "Could not find resource %#v" $scriptFile }}
   {{ end }}

@@ -2,7 +2,7 @@
   "name": "berniesumption.com",
   "private": true,
   "scripts": {
-    "start": "hugo serve -D --disableFastRender"
+    "start": "hugo serve -D"
   },
   "dependencies": {},
   "devDependencies": {
