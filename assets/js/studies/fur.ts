@@ -9,6 +9,7 @@ import {
   Object3D,
   SphereGeometry,
   SpotLight,
+  AxesHelper,
 } from "/vendor/three/three.module.js";
 
 import { OrbitControls } from "/vendor/three/OrbitControls.js";
@@ -19,6 +20,8 @@ import { faceCentroid } from "/libs/utils";
 // TODO - orient strands pointing outwards - implement my own geometry generation
 // TODO - vertex shader making strands wibble
 // TODO - randomly distribute strands over surface
+
+const halfPi = Math.PI / 2;
 
 class Furry extends Object3D {
   constructor(private geometry: BufferGeometry) {
@@ -46,11 +49,21 @@ class Furry extends Object3D {
     );
     this.add(mesh);
 
-    const dummy = new Object3D();
+    const obj = new Object3D();
+    const { position, rotation } = obj;
     for (let i = 0; i < faceCount; ++i) {
-      dummy.position.copy(faceCentroid(vertices, i));
-      dummy.updateMatrix();
-      mesh.setMatrixAt(i, dummy.matrix);
+      const strandStart = faceCentroid(vertices, i);
+      position.copy(strandStart);
+      const xRotation = Math.atan2(position.y, position.z);
+      const yRotation = Math.atan2(position.z, position.x);
+      const zRotation = Math.atan2(position.y, position.x);
+      rotation.set(
+        -xRotation + halfPi,
+        -yRotation + halfPi,
+        -zRotation + halfPi
+      );
+      obj.updateMatrix();
+      mesh.setMatrixAt(i, obj.matrix);
     }
   }
 }
@@ -71,7 +84,11 @@ initThreeCanvas(({ scene, camera, renderer }) => {
 
   scene.add(new Furry(new SphereGeometry(1)));
 
-  camera.position.set(-2, 3, 2.5);
+  const axes = new AxesHelper(3);
+  // (axes.material as any).depthTest = false;
+  scene.add(axes);
+
+  camera.position.set(0, 0, 4);
   camera.lookAt(scene.position);
 
   return () => {
