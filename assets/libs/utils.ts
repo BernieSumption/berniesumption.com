@@ -4,6 +4,7 @@ import {
   Color,
   Texture,
   TextureLoader,
+  Triangle,
   Vector3,
 } from "/vendor/three/three.module.js";
 
@@ -49,20 +50,54 @@ export const renderShadowTexture = (size: number, color: Color) => {
 };
 
 export const randomPointOnFace = (
-  a: Vector3,
-  b: Vector3,
-  c: Vector3
+  positions: BufferAttribute,
+  faceIndex: number,
+  result = new Vector3()
 ): Vector3 => {
-  const v1 = b.clone().sub(a);
-  const v2 = c.clone().sub(a);
+  const start = faceIndex * 3;
+  const ax = positions.getX(start + 0);
+  const ay = positions.getY(start + 0);
+  const az = positions.getZ(start + 0);
+  const bx = positions.getX(start + 1);
+  const by = positions.getY(start + 1);
+  const bz = positions.getZ(start + 1);
+  const cx = positions.getX(start + 2);
+  const cy = positions.getY(start + 2);
+  const cz = positions.getZ(start + 2);
+  const v1x = bx - ax;
+  const v1y = by - ay;
+  const v1z = bz - az;
+  const v2x = cx - ax;
+  const v2y = cy - ay;
+  const v2z = cz - az;
   let p1 = Math.random();
   let p2 = Math.random();
   if (p1 + p2 > 1) {
     p1 = 1 - p1;
     p2 = 1 - p2;
   }
-  return a.clone().addScaledVector(v1, p1).addScaledVector(v2, p2);
+  return result.set(
+    ax + v1x * p1 + v2x * p2,
+    ay + v1y * p1 + v2y * p2,
+    az + v1z * p1 + v2z * p2
+  );
 };
+
+// export const randomPointOnFace = (
+//   a: Vector3,
+//   b: Vector3,
+//   c: Vector3
+// ): Vector3 => {
+//   const v1 = b.clone().sub(a);
+//   const v2 = c.clone().sub(a);
+//   let p1 = Math.random();
+//   let p2 = Math.random();
+//   if (p1 + p2 > 1) {
+//     p1 = 1 - p1;
+//     p2 = 1 - p2;
+//   }
+//   return a.clone().addScaledVector(v1, p1).addScaledVector(v2, p2);
+// };
 
 export const faceCentroid = (
   positions: BufferAttribute,
@@ -83,6 +118,30 @@ export const faceCentroid = (
   return centroid.divideScalar(3);
 };
 
+const triangle = new Triangle();
+export const faceArea = (
+  positions: BufferAttribute,
+  faceIndex: number
+): number => {
+  const start = faceIndex * 3;
+  triangle.a.set(
+    positions.getX(start + 0),
+    positions.getY(start + 0),
+    positions.getZ(start + 0)
+  );
+  triangle.b.set(
+    positions.getX(start + 1),
+    positions.getY(start + 1),
+    positions.getZ(start + 1)
+  );
+  triangle.c.set(
+    positions.getX(start + 2),
+    positions.getY(start + 2),
+    positions.getZ(start + 2)
+  );
+  return triangle.getArea();
+};
+
 export const degrees = (d: number) => (d / 180) * Math.PI;
 
 export const shuffle = <T>(arr: T[]): T[] => {
@@ -95,10 +154,7 @@ export const shuffle = <T>(arr: T[]): T[] => {
   return arr;
 };
 
-export const sortBy = <T, P extends keyof T>(
-  arr: T[],
-  f: (item: T) => any
-): T[] =>
+export const sortBy = <T>(arr: T[], f: (item: T) => any): T[] =>
   arr.sort((a, b) => {
     let aValue = f(a);
     let bValue = f(b);
