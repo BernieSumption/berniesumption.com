@@ -83,22 +83,6 @@ export const randomPointOnFace = (
   );
 };
 
-// export const randomPointOnFace = (
-//   a: Vector3,
-//   b: Vector3,
-//   c: Vector3
-// ): Vector3 => {
-//   const v1 = b.clone().sub(a);
-//   const v2 = c.clone().sub(a);
-//   let p1 = Math.random();
-//   let p2 = Math.random();
-//   if (p1 + p2 > 1) {
-//     p1 = 1 - p1;
-//     p2 = 1 - p2;
-//   }
-//   return a.clone().addScaledVector(v1, p1).addScaledVector(v2, p2);
-// };
-
 export const faceCentroid = (
   positions: BufferAttribute,
   faceIndex: number
